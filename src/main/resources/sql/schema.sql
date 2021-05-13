@@ -494,6 +494,73 @@ BEGIN
     RETURN @sum;
 END;
 
+-- This procedure takes menu ID and client ID and inserts purchase data into 2 tables
+-- with guaranteed PurchaseOrderType of 'in-place' 
+CREATE PROCEDURE Purchase.OrderInPlace(
+	@clientId BIGINT,
+	@menuId BIGINT
+)
+    RETURNS BIGINT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+	DECLARE @id BIGINT
+
+    INSERT INTO Purchase.PurchaseOrder (typeId, clientId) 
+	SELECT id, @clientId FROM Purchase.PurchaseOrderType WHERE type = 'in-place'
+
+	SET @id = SCOPE_IDENTITY();
+
+	INSERT INTO Purchase.PurchaseOrderMenu (purchaseOrderId, menuId) 
+	VALUES(@id, @menuId)
+END;
+
+-- This procedure takes menu ID and client ID and inserts purchase data into 2 tables
+-- with guaranteed PurchaseOrderType of 'out-of-place' 
+CREATE PROCEDURE Purchase.OrderOutOfPlace(
+	@clientId BIGINT,
+	@menuId BIGINT
+)
+    RETURNS BIGINT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+	DECLARE @id BIGINT
+
+    INSERT INTO Purchase.PurchaseOrder (typeId, clientId) 
+	SELECT id, @clientId FROM Purchase.PurchaseOrderType WHERE type = 'out-of-place'
+
+	SET @id = SCOPE_IDENTITY();
+
+	INSERT INTO Purchase.PurchaseOrderMenu (purchaseOrderId, menuId) 
+	VALUES(@id, @menuId)
+END;
+
+-- This procedure takes menu ID, client ID and date and inserts purchase data into 2 tables
+-- with guaranteed PurchaseOrderType of 'out-of-place' and in-advance receipt
+CREATE PROCEDURE Purchase.OrderOutOfPlaceInAdvance(
+	@clientId BIGINT,
+	@menuId BIGINT,
+	@date DATETIME
+)
+    RETURNS BIGINT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+	DECLARE @id BIGINT
+
+    INSERT INTO Purchase.PurchaseOrder (typeId, clientId, pickupDate) 
+	SELECT id, @clientId, @date FROM Purchase.PurchaseOrderType WHERE type = 'out-of-place'
+
+	SET @id = SCOPE_IDENTITY();
+
+	INSERT INTO Purchase.PurchaseOrderMenu (purchaseOrderId, menuId) 
+	VALUES(@id, @menuId)
+END;
+
 
 
 
