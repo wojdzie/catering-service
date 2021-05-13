@@ -263,6 +263,18 @@ WHERE id IN (
 END
 GO
 
+-- Restaurant.Restaurant
+CREATE TABLE Restaurant.Restaurant (
+	id						BIGINT NOT NULL IDENTITY,
+	localSquareMeters		INT NOT NULL,
+	createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
+	createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
+	lastModified			DATETIME NOT NULL DEFAULT GETDATE(),
+	lastModifiedBy			VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
+	PRIMARY KEY(id),
+	CONSTRAINT CHK_localSquareMeters CHECK (localSquareMeters > 0)
+)
+
 -- Restaurant.SingleTable
 CREATE TABLE Restaurant.SingleTable (
 	id						BIGINT NOT NULL IDENTITY,
@@ -494,8 +506,141 @@ BEGIN
     RETURN @sum;
 END;
 
+CREATE FUNCTION Restaurant.AvailableTable
+(	
+	@peopleCount INT
+)
+RETURNS TABLE 
+AS
+RETURN (SELECT TOP 1 * FROM Restaurant.SingleTable WHERE seats = @peopleCount AND available = 1)
 
 
+CREATE PROCEDURE Restaurant.BookTable
+(
+	@clientId BIGINT,
+	@peopleCount INT
+)
+AS
+BEGIN
+	IF EXISTS (SELECT * FROM Restaurant.SingleTable WHERE seats = @peopleCount AND available = 1)
+	BEGIN
+		DECLARE @id BIGINT
+
+		SELECT @id = id FROM AvailableTable(@peopleCount)
+
+		INSERT INTO Restaurant.Reservation (clientId, tableId)
+		SELECT @clientId, @id FROM Restaurant.SingleTable WHERE id = @id
+
+		UPDATE Restaurant.SingleTable SET available = 0 WHERE id = @id
+	END
+END;
+
+CREATE PROCEDURE StaticData.AddRestrictions
+	@startDate DATETIME,
+	@endDate DATETIME,
+	@newArea INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO StaticData.AreaRestriction (squareMetersLimit, startDate, endDate)
+	VALUES (@newArea, @startDate, @endDate)
+END;
 
 
+CREATE PROCEDURE Client.InsertAddress
+(
+@address	VARCHAR(100),
+@city	VARCHAR(50),
+@postalCode	VARCHAR(6),
+@country	VARCHAR(50),
+@id BIGINT OUTPUT
+)
+AS
+BEGIN
+	INSERT INTO Client.Address(
+	address,
+	city,
+	postalCode,
+	country
+	)
+	VALUES (
+	@address,
+	@city,
+	@postalCode,
+	@country
+	)
+	SET @id = SCOPE_IDENTITY();
+END;
 
+CREATE PROCEDURE Client.InsertClient
+(@typeId	BIGINT,
+@firstName  VARCHAR(50),
+@lastName	VARCHAR(80),
+@companyName	VARCHAR(100),
+@NIP	VARCHAR(10),
+@Regon	VARCHAR(14),
+@addressId	BIGINT,
+@phone	VARCHAR(9),
+@email	VARCHAR(50)
+)
+AS
+BEGIN
+	INSERT INTO Client.Client(
+		typeId,
+		firstName,
+		lastName,
+		companyName,
+		NIP,
+		Regon,
+		addressId,
+		phone,
+		email	
+)
+VALUES (
+		@typeId,
+		@firstName,
+		@lastName,
+		@companyName,
+		@NIP,
+		@Regon,
+		@addressId,
+		@phone,
+		@email	
+)
+END;
+
+CREATE PROCEDURE Client.AddClient
+(
+@typeId	BIGINT,
+@firstName  VARCHAR(50),
+@lastName	VARCHAR(80),
+@companyName	VARCHAR(100),
+@NIP	VARCHAR(10),
+@Regon	VARCHAR(14),
+@phone	VARCHAR(9),
+@email	VARCHAR(50),
+@address	VARCHAR(100),
+@city	VARCHAR(50),
+@postalCode	VARCHAR(6),
+@country	VARCHAR(50)
+)
+AS
+BEGIN
+DECLARE @addressID BIGINT
+EXEC Client.InsertAddress @address = @address,
+						@city = @city,
+						@postalCode = @postalCode,
+						@country = @country,
+						@id = @addressID OUTPUT;
+
+EXEC  Client.InsertClient @typeId = @typeId,
+						@firstName = @firstName,
+						@lastName = @lastName,
+						@companyName = @companyName,
+						@NIP = @NIP,
+						@Regon = @Regon,
+						@addressId = @addressId,
+						@phone = @phone,
+						@email = @email;
+END;
