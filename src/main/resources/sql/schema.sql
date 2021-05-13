@@ -9,6 +9,8 @@ CREATE SCHEMA Restaurant
 GO
 CREATE SCHEMA StaticData
 GO
+CREATE SCHEMA Invoice
+GO
 
 -- Create tables
 -- Product.ProductType
@@ -88,6 +90,7 @@ GO
 -- Purchase.PurchaseOrder
 CREATE TABLE Purchase.PurchaseOrder (
 	id						BIGINT NOT NULL IDENTITY,
+    clientId				BIGINT NOT NULL,
 	typeId					BIGINT NOT NULL,
 	purchaseOrderDate		DATETIME NOT NULL DEFAULT GETDATE(),
 	pickupDate				DATETIME NULL,
@@ -97,6 +100,7 @@ CREATE TABLE Purchase.PurchaseOrder (
 	lastModifiedBy			VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
 	PRIMARY KEY(id),
 	FOREIGN KEY(typeId) REFERENCES Purchase.PurchaseOrderType(id),
+    FOREIGN KEY(clientId) REFERENCES Client.Client(id),
 	CONSTRAINT CHK_pickupDate CHECK (pickupDate >= purchaseOrderDate)
 )
 GO
@@ -135,6 +139,31 @@ BEGIN
 	WHERE id IN (
 		SELECT id FROM inserted
 	)
+END
+GO
+
+-- Purchase.PurchaseOrderMenu
+CREATE TABLE Purchase.PurchaseOrderMenu (
+    purchaseOrderId         BIGINT NOT NULL,
+    menuId                  BIGINT NOT NULL,
+    FOREIGN KEY(purchaseOrderId) REFERENCES Purchase.PurchaseOrder(id),
+    FOREIGN KEY(menuId) REFERENCES Purchase.Menu(id),
+    createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
+    createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
+    lastModified			DATETIME NOT NULL DEFAULT GETDATE(),
+    lastModifiedBy			VARCHAR(50) NOT NULL DEFAULT CURRENT_USER
+)
+GO
+
+CREATE TRIGGER Purchase.PurchaseOrderMenuTrigger ON Purchase.PurchaseOrderMenu
+AFTER UPDATE
+AS
+BEGIN
+UPDATE Purchase.PurchaseOrderMenu
+SET lastModified = GETDATE(), lastModifiedBy = CURRENT_USER
+WHERE id IN (
+    SELECT id FROM inserted
+)
 END
 GO
 
