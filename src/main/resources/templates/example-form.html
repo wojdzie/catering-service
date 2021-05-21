@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started: Serving Web Content</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+
+<style>
+    .container {
+        background-color: #F8F8F8;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+
+    .header {
+        margin-bottom: 2rem;
+    }
+
+    .tab-content {
+        padding: 1rem 0;
+    }
+
+    .tab-pane-section {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-pane-section:last-child {
+        border-bottom: none;
+    }
+
+    .tab-pane-section > p {
+        margin: 0;
+        line-height: 38px;
+    }
+
+    .button-group {
+        margin-top: 1rem;
+    }
+</style>
+
+<body>
+<main class="container">
+    <header class="header">
+        <h2>Podstawy Baz Danych</h2>
+        <p>System wspomagania działalności firmy świadczącej usługi gastronomiczne dla klientów indywidualnych oraz firm</p>
+    </header>
+    <section class="section">
+        <h2>Przykładowa funkcja</h2>
+        <form action="#" th:action="@{/example}" th:object="${example}" method="post">
+            <div class="form-group">
+                <label for="numberExample">Number example</label>
+                <input id="numberExample" class="form-control" type="text" th:field="*{numberExample}" placeholder="Enter number example" />
+            </div>
+            <div class="form-group">
+                <label for="textExample">Text example</label>
+                <input id="textExample" class="form-control" type="text" th:field="*{textExample}" placeholder="Enter text example" />
+            </div>
+            <div class="form-group">
+                <label for="textAreaExample">Text area example</label>
+                <textarea id="textAreaExample" class="form-control" th:field="*{textAreaExample}" placeholder="Enter text example"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="selectExample">Select example</label>
+                <select id="selectExample" class="form-control" th:field="*{selectExample}">
+                    <option value="">Nothing selected</option>
+                    <option th:each="selectExample : ${T(pl.edu.agh.iet.model.SelectExample).values()}" th:value="${selectExample}" th:text="${selectExample}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dateTimeExample">Select example</label>
+                <input id="dateTimeExample" class="form-control" type="datetime-local" th:value="*{dateTimeExample}" th:field="*{dateTimeExample}" />
+            </div>
+            <div class="form-group">
+                <label>Something</label>
+                <div th:each="radioExample : ${T(pl.edu.agh.iet.model.RadioExample).values()}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" th:field="*{radioExample}" th:value="${radioExample}" class="custom-control-input">
+                        <label class="custom-control-label" th:for="${#ids.prev('radioExample')}" th:text="${radioExample}">Radio Example</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                <input id="checkboxExample" class="form-check-input" type="checkbox" th:field="*{checkboxExample}" />
+                <label for="checkboxExample" class="form-check-label">Checkbox example</label>
+            </div>
+            <div class="button-group">
+                <input class="btn btn-primary" type="submit" value="Submit" />
+                <input class="btn btn-secondary" type="reset" value="Reset" />
+            </div>
+        </form>
+    </section>
+
+</main>
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
