@@ -11,3 +11,7 @@
 3. Dodaj nowy szablon w `src/main/resources/templates`, np. formularz do wypełnienia albo widok do wyświetlania danych
 4. Dodaj metodę z zapytaniem SQL w nowym lub istniejącym serwisie
 5. Przetestuj rozwiązanie
+
+## Dokumentacja
+1. https://getbootstrap.com/docs/4.0/getting-started/introduction/
+2. https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html
