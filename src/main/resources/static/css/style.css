@@ -1,0 +1,44 @@
+.container {
+    background-color: #F8F8F8;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.tab-content {
+    padding: 1rem 0;
+}
+
+.tab-pane-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tab-pane-section:last-child {
+    border-bottom: none;
+}
+
+.tab-pane-section > p {
+    margin: 0;
+    line-height: 38px;
+}
+
+.button-group {
+    margin-top: 1rem;
+}
+
+.table {
+    background-color: #ffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-main-page {
+    text-align: center;
+}

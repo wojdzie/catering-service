@@ -343,3 +343,25 @@ BEGIN
 		SELECT id FROM inserted
 	)
 END;
+
+INSERT INTO Product.ProductType (type) VALUES ('Żywność');
+INSERT INTO Product.ProductType (type) VALUES ('Napój bezalkoholowy');
+
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Spaghetti');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Schabowy');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Schab pieczony');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Pierogi');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Naleśniki');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Racuchy');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Placek po węgiersku');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Szarlotka');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Karpatka');
+INSERT INTO Product.Product (typeId, name) VALUES (1, 'Owoce morza');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Kawa');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Koktajl');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Woda niegazowana');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Woda gazowana');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Coca-Cola');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Sprite');
+INSERT INTO Product.Product (typeId, name) VALUES (2, 'Fanta');
+

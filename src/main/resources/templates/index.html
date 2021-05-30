@@ -4,41 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Getting Started: Serving Web Content</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/css/style.css} "/>
 </head>
-
-<style>
-    .container {
-        background-color: #F8F8F8;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        margin: 2rem auto;
-        padding: 2rem;
-    }
-
-    .header {
-        margin-bottom: 2rem;
-    }
-
-    .tab-content {
-        padding: 1rem 0;
-    }
-
-    .tab-pane-section {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .tab-pane-section:last-child {
-        border-bottom: none;
-    }
-
-    .tab-pane-section > p {
-        margin: 0;
-        line-height: 38px;
-    }
-</style>
 
 <body>
 <main class="container">
@@ -52,7 +19,7 @@
                 <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="true">Zamówienie</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                <a class="nav-link" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">Produkty</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
@@ -62,7 +29,7 @@
             <div class="tab-pane fade show active" id="order" role="tabpanel" aria-labelledby="order-tab">
                 <div class="tab-pane-section">
                     <p>Sprawdź przykład</p>
-                    <form class="" th:action="@{/example}">
+                    <form th:action="@{/example}">
                         <button type="submit" class="btn btn-primary">>></button>
                     </form>
                 </div>
@@ -79,18 +46,24 @@
                     <button type="button" class="btn btn-warning">>></button>
                 </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade" id="product" role="tabpanel" aria-labelledby="product-tab">
                 <div class="tab-pane-section">
-                    <p>Złóż zamówienie 1</p>
-                    <button type="button" class="btn btn-danger">>></button>
+                    <p>Dodaj produkt</p>
+                    <form th:action="@{/product/add}">
+                        <button type="submit" class="btn btn-primary">>></button>
+                    </form>
                 </div>
                 <div class="tab-pane-section">
-                    <p>Złóż zamówienie 2</p>
-                    <button type="button" class="btn btn-warning">>></button>
+                    <p>Usuń produkt</p>
+                    <form th:action="@{/product/remove}">
+                        <button type="submit" class="btn btn-danger">>></button>
+                    </form>
                 </div>
                 <div class="tab-pane-section">
-                    <p>Złóż zamówienie 3</p>
-                    <button type="button" class="btn btn-info">>></button>
+                    <p>Wyświetl produkty</p>
+                    <form th:action="@{/product}">
+                        <button type="submit" class="btn btn-success">>></button>
+                    </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
