@@ -173,9 +173,10 @@ CREATE TABLE Restaurant.Reservation (
 
 CREATE TABLE StaticData.Discount (
 	id						BIGINT NOT NULL IDENTITY,
-	minOrderNumber			INT NOT NULL,
+	minOrderNumber			INT NULL,
 	minOrderPrice			DECIMAL(10,2) NOT NULL,
-	lifetime				BIT NOT NULL,
+	available               BIT NOT NULL,
+	discount                INT NOT NULL,
 	validityDate			DATETIME NULL,
 	createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
 	createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
@@ -184,7 +185,8 @@ CREATE TABLE StaticData.Discount (
 	PRIMARY KEY(id),
 	CONSTRAINT CHK_minOrderNumber CHECK (minOrderNumber > 0),
 	CONSTRAINT CHK_minOrderPrice CHECK (minOrderPrice > 0),
-	CONSTRAINT CHK_validityDate CHECK (validityDate >= GETDATE())
+	CONSTRAINT CHK_validityDate CHECK (validityDate >= GETDATE()),
+	CONSTRAINT CHK_discount CHECK (discount > 0)
 );
 
 CREATE TABLE StaticData.AreaRestriction (
@@ -365,3 +367,5 @@ INSERT INTO Product.Product (typeId, name) VALUES (2, 'Coca-Cola');
 INSERT INTO Product.Product (typeId, name) VALUES (2, 'Sprite');
 INSERT INTO Product.Product (typeId, name) VALUES (2, 'Fanta');
 
+INSERT INTO StaticData.Discount (minOrderNumber, minOrderPrice, available, discount, validityDate) VALUES (10, 30.00, 1, 3, NULL);
+INSERT INTO StaticData.Discount (minOrderNumber, minOrderPrice, available, discount, validityDate) VALUES (NULL, 1000.00, 1, 5, DATEADD(dd, 7, GETDATE()));

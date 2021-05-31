@@ -22,7 +22,10 @@
                 <a class="nav-link" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">Produkty</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                <a class="nav-link" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="false">Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="discount-tab" data-toggle="tab" href="#discount" role="tab" aria-controls="discount" aria-selected="false">Rabaty</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -66,18 +69,36 @@
                     </form>
                 </div>
             </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
                 <div class="tab-pane-section">
                     <p>Złóż zamówienie 1</p>
-                    <button type="button" class="btn btn-light">>></button>
+                    <button type="button" class="btn btn-primary">>></button>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="discount" role="tabpanel" aria-labelledby="discount-tab">
+                <div class="tab-pane-section">
+                    <p>Wyświetl zniżki</p>
+                    <form th:action="@{/discount}">
+                        <button type="submit" class="btn btn-success">>></button>
+                    </form>
                 </div>
                 <div class="tab-pane-section">
-                    <p>Złóż zamówienie 2</p>
-                    <button type="button" class="btn btn-dark">>></button>
+                    <p>Dodaj zniżkę po realizacji ustalonej liczby zamówień</p>
+                    <form th:action="@{/discount/orders/add}">
+                        <button type="submit" class="btn btn-primary">>></button>
+                    </form>
                 </div>
                 <div class="tab-pane-section">
-                    <p>Złóż zamówienie 3</p>
-                    <button type="button" class="btn btn-link">>></button>
+                    <p>Dodaj zniżkę po realizacji zamówień za łączną kwotę</p>
+                    <form th:action="@{/discount/amount/add}">
+                        <button type="submit" class="btn btn-danger">>></button>
+                    </form>
+                </div>
+                <div class="tab-pane-section">
+                    <p>Usuń zniżkę</p>
+                    <form th:action="@{/discount/remove}">
+                        <button type="submit" class="btn btn-warning">>></button>
+                    </form>
                 </div>
             </div>
         </div>
