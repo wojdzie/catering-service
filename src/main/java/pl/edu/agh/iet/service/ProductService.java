@@ -17,7 +17,7 @@ public class ProductService {
     }
 
     public List<ProductDTO> getAllProducts() {
-        return jdbcTemplate.query("SELECT id, typeId, name FROM Product.Product", new BeanPropertyRowMapper<>(ProductDTO.class));
+        return jdbcTemplate.query("SELECT id, typeId, name, price FROM Product.Product", new BeanPropertyRowMapper<>(ProductDTO.class));
     }
 
     public List<ProductTypeDTO> getAllProductTypes() {
@@ -25,9 +25,10 @@ public class ProductService {
     }
 
     public void saveProduct(ProductDTO productDTO) {
-        jdbcTemplate.update("INSERT INTO Product.Product (typeId, name) VALUES (?, ?)",
+        jdbcTemplate.update("INSERT INTO Product.Product (typeId, name, price) VALUES (?, ?, ?)",
                 productDTO.getTypeId(),
-                productDTO.getName());
+                productDTO.getName(),
+                productDTO.getPrice());
     }
 
     public void deleteProduct(ProductDTO productDTO) {

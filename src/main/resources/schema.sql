@@ -35,7 +35,8 @@ CREATE TABLE Product.Product (
      id						BIGINT NOT NULL IDENTITY,
      typeId					BIGINT NOT NULL,
      name					VARCHAR(100) NOT NULL,
-     createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
+     price					DECIMAL(10,2) NOT NULL,
+     createdDate			DATETIME NOT NULL DEFAULT GETDATE(),
      createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
      lastModified			DATETIME NOT NULL DEFAULT GETDATE(),
      lastModifiedBy			VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
@@ -121,7 +122,7 @@ CREATE TABLE Purchase.PurchaseOrder (
 CREATE TABLE Purchase.Menu (
 	id						BIGINT NOT NULL IDENTITY,
 	productId				BIGINT NOT NULL,
-	price					DECIMAL(10,2) NOT NULL,
+	endDate	    			DATETIME NULL,
 	createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
 	createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
 	lastModified			DATETIME NOT NULL DEFAULT GETDATE(),
@@ -349,23 +350,23 @@ END;
 INSERT INTO Product.ProductType (type) VALUES ('Żywność');
 INSERT INTO Product.ProductType (type) VALUES ('Napój bezalkoholowy');
 
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Spaghetti');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Schabowy');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Schab pieczony');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Pierogi');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Naleśniki');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Racuchy');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Placek po węgiersku');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Szarlotka');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Karpatka');
-INSERT INTO Product.Product (typeId, name) VALUES (1, 'Owoce morza');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Kawa');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Koktajl');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Woda niegazowana');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Woda gazowana');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Coca-Cola');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Sprite');
-INSERT INTO Product.Product (typeId, name) VALUES (2, 'Fanta');
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Spaghetti', 20.00);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Schabowy', 21.53);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Schab pieczony', 22.34);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Pierogi', 14.99);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Naleśniki', 10.95);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Racuchy', 11.11);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Placek po węgiersku', 17.25);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Szarlotka', 13.35);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Karpatka', 6.54);
+INSERT INTO Product.Product (typeId, name, price) VALUES (1, 'Owoce morza', 31.95);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Kawa', 6.99);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Koktajl', 8.99);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Woda niegazowana', 3.29);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Woda gazowana', 1.99);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Coca-Cola', 4.99);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Sprite', 4.95);
+INSERT INTO Product.Product (typeId, name, price) VALUES (2, 'Fanta', 5.15);
 
 INSERT INTO StaticData.Discount (minOrderNumber, minOrderPrice, available, discount, validityDate) VALUES (10, 30.00, 1, 3, NULL);
 INSERT INTO StaticData.Discount (minOrderNumber, minOrderPrice, available, discount, validityDate) VALUES (NULL, 1000.00, 1, 5, DATEADD(dd, 7, GETDATE()));

@@ -18,20 +18,24 @@
             <thead>
             <tr>
                 <th> id </th>
-                <th> typeId </th>
-                <th> name </th>
+                <th> productId </th>
+                <th> productType </th>
+                <th> productName </th>
                 <th> price </th>
+                <th> endDate </th>
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${products.empty}">
-                <td colspan="2"> No Products Available </td>
+            <tr th:if="${menu.empty}">
+                <td colspan="2"> No Menu Available </td>
             </tr>
-            <tr th:each="product : ${products}">
-                <td><span th:text="${product.id}"> id </span></td>
-                <td><span th:text="${product.typeId}"> typeId </span></td>
-                <td><span th:text="${product.name}"> name </span></td>
-                <td><span th:text="${product.price}"> price </span></td>
+            <tr th:each="position : ${menu}">
+                <td><span th:text="${position.id}"> id </span></td>
+                <td><span th:text="${position.productId}"> productId </span></td>
+                <td><span th:text="${position.productType}"> productType </span></td>
+                <td><span th:text="${position.productName}"> productName </span></td>
+                <td><span th:text="${position.price}"> price </span></td>
+                <td><span th:text="${#temporals.format(position.endDate, 'dd-MM-yyyy HH:mm')}"> endDate </span></td>
             </tr>
             </tbody>
         </table>

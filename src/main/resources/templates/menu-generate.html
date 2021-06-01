@@ -14,14 +14,11 @@
         <p>System wspomagania działalności firmy świadczącej usługi gastronomiczne dla klientów indywidualnych oraz firm</p>
     </header>
     <section class="section">
-        <h2>Usuń produkt</h2>
-        <form action="#" th:action="@{/product/remove}" th:object="${product}" method="post">
+        <h2>Dodaj produkt</h2>
+        <form action="#" th:action="@{/menu/generate}" th:object="${menuSize}" method="post">
             <div class="form-group">
-                <label for="selectExample">Wybierz product</label>
-                <select id="selectExample" class="form-control" th:field="*{id}">
-                    <option value="">Nothing selected</option>
-                    <option th:each="singleProduct : ${products}" th:value="${singleProduct.id}" th:text="${singleProduct.name} + ' (' + ${singleProduct.price} + ' zł)'"></option>
-                </select>
+                <label for="price">Liczba pozycji w menu</label>
+                <input id="price" class="form-control" type="number" th:field="*{size}" placeholder="Wprowadź liczbę pozycji w menu" />
             </div>
             <div class="button-group">
                 <input class="btn btn-primary" type="submit" value="Submit" />

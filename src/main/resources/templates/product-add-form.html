@@ -28,6 +28,10 @@
                 <label for="name">Nazwa produktu</label>
                 <input id="name" class="form-control" type="text" th:field="*{name}" placeholder="Wprowadź nazwę produktu" />
             </div>
+            <div class="form-group">
+                <label for="price">Cena produktu</label>
+                <input id="price" class="form-control" type="number" step="0.01" th:field="*{price}" placeholder="Wprowadź cenę produktu" />
+            </div>
             <div class="button-group">
                 <input class="btn btn-primary" type="submit" value="Submit" />
                 <input class="btn btn-secondary" type="reset" value="Reset" />

@@ -71,8 +71,16 @@
             </div>
             <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
                 <div class="tab-pane-section">
-                    <p>Złóż zamówienie 1</p>
-                    <button type="button" class="btn btn-primary">>></button>
+                    <p>Wyświetl menu</p>
+                    <form th:action="@{/menu}">
+                        <button type="submit" class="btn btn-primary">>></button>
+                    </form>
+                </div>
+                <div class="tab-pane-section">
+                    <p>Wygeneruj nowe menu</p>
+                    <form th:action="@{/menu/generate}">
+                        <button type="submit" class="btn btn-success">>></button>
+                    </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="discount" role="tabpanel" aria-labelledby="discount-tab">
