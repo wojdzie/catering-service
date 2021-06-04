@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started: Serving Web Content</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/css/style.css} "/>
+</head>
+
+<body>
+<main class="container">
+    <header class="header">
+        <h2>Podstawy Baz Danych</h2>
+        <p>System wspomagania działalności firmy świadczącej usługi gastronomiczne dla klientów indywidualnych oraz firm</p>
+    </header>
+    <section class="section">
+        <h2>Dodaj rezerwacje</h2>
+        <form action="#" th:action="@{/reservation/add}" th:object="${reservation}" method="post">
+            <div class="form-group">
+                <label for="clientId">Klient</label>
+                <input id="clientId" class="form-control" type="text" th:field="*{clientId}" placeholder="Wprowadź id klienta" />
+            </div>
+            <div class="form-group">
+                <label for="tableId">Stolik</label>
+                <input id="tableId" class="form-control" type="number" step="0.01" th:field="*{tableId}" placeholder="Wprowadź id stolika" />
+            </div>
+            <div class="form-group">
+                <label for="reservationDate">Data rezerwacji</label>
+                <input id="reservationDate" class="form-control" type="number" step="0.01" th:field="*{reservationDate}" placeholder="Wprowadź datę rezerwacji" />
+            </div>
+            <div class="form-group">
+                <label for="additionalInformation">Typ rezerwacji</label>
+                <input id="additionalInformation" class="form-control" type="number" step="0.01" th:field="*{additionalInformation}" placeholder="Wprowadź typ rezerwacji" />
+            </div>
+            <div class="button-group">
+                <input class="btn btn-primary" type="submit" value="Submit" />
+                <input class="btn btn-secondary" type="reset" value="Reset" />
+            </div>
+        </form>
+    </section>
+
+</main>
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

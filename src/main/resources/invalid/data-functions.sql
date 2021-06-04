@@ -118,7 +118,37 @@ BEGIN
     RETURN @sum;
 END;
 
+CREATE FUNCTION Restaurant.AvailableTables(@data DATETIME)
+	RETURNS INT
+AS
+BEGIN
+	DECLARE @localSquareMeters INT;
+	DECLARE @squareMetersLimit INT = NULL;
+	DECLARE @notAvailable INT;
+	DECLARE @available INT;
 
+SELECT @localSquareMeters = localSquareMeters
+FROM Restaurant.Restaurant
+
+SELECT @squareMetersLimit = squareMetersLimit
+FROM StaticData.AreaRestriction
+WHERE startDate <= @data AND endDate >= @data
+
+IF(@squareMetersLimit IS NOT NULL)	-- oblicza dostępne miejsca na podstawie restrykcji
+BEGIN
+    SELECT @notAvailable = COUNT(*)
+    FROM Restaurant.SingleTable
+    WHERE available = 0
+    SET @available = ( @localSquareMeters / @squareMetersLimit) - @notAvailable*4
+END
+ELSE
+BEGIN
+    SELECT @available = COUNT(*)*4		-- nie ma restrykcji, więc liczba stolików*4miejsca
+    FROM Restaurant.SingleTable
+    WHERE available = 1
+END
+RETURN @available
+END
 
 
 

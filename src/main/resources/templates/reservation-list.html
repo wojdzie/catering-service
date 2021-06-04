@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started: Serving Web Content</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/css/style.css} "/>
+</head>
+
+<body>
+<main class="container">
+    <header class="header">
+        <h1>Podstawy Baz Danych</h1>
+        <p>System wspomagania działalności firmy świadczącej usługi gastronomiczne dla klientów indywidualnych oraz firm</p>
+    </header>
+    <section class="section">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> id </th>
+                <th> clientId </th>
+                <th> tableId </th>
+                <th> reservationDate </th>
+                <th> additionalInformation </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${reservation.empty}">
+                <td colspan="2"> No Reservation Available </td>
+            </tr>
+            <tr th:each="reservation : ${reservation}">
+                <td><span th:text="${reservation.id}"> id </span></td>
+                <td><span th:text="${reservation.clientId}"> clientId </span></td>
+                <td><span th:text="${reservation.tableId}"> tableId </span></td>
+                <td><span th:text="${reservation.reservationDate}"> reservationDate </span></td>
+                <td><span th:text="${reservation.additionalInformation}"> additionalInformation </span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn-main-page">
+            <a th:href="@{/}" class="btn btn-primary">Wróc do strony głównej</a>
+        </div>
+    </section>
+
+</main>
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

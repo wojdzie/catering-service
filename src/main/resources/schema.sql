@@ -144,6 +144,17 @@ CREATE TABLE Purchase.PurchaseOrderMenu (
     FOREIGN KEY(menuId) REFERENCES Purchase.Menu(id)
 );
 
+CREATE TABLE Restaurant.Restaurant (
+id						BIGINT NOT NULL IDENTITY,
+localSquareMeters		INT NOT NULL,
+createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
+createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
+lastModified			DATETIME NOT NULL DEFAULT GETDATE(),
+lastModifiedBy			VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
+PRIMARY KEY(id),
+CONSTRAINT CHK_localSquareMeters CHECK (localSquareMeters > 0)
+)
+
 CREATE TABLE Restaurant.SingleTable (
 	id						BIGINT NOT NULL IDENTITY,
 	seats					INT NOT NULL,
@@ -162,6 +173,7 @@ CREATE TABLE Restaurant.Reservation (
 	tableId					BIGINT NOT NULL,
 	reservationDate			DATETIME NOT NULL,
 	additionalInformation	VARCHAR(200) NULL,
+    confirmed               BIT NOT NULL,
 	createdDate				DATETIME NOT NULL DEFAULT GETDATE(),
 	createdBy				VARCHAR(50) NOT NULL DEFAULT CURRENT_USER,
 	lastModified			DATETIME NOT NULL DEFAULT GETDATE(),
@@ -301,6 +313,17 @@ SET lastModified = GETDATE(), lastModifiedBy = CURRENT_USER
 WHERE id IN (
     SELECT id FROM inserted
 )
+END;
+
+CREATE TRIGGER Restaurant.Restaurant ON Restaurant.Restaurant
+    AFTER UPDATE
+    AS
+BEGIN
+    UPDATE Restaurant.Restaurant
+    SET lastModified = GETDATE(), lastModifiedBy = CURRENT_USER
+    WHERE id IN (
+        SELECT id FROM inserted
+    )
 END;
 
 CREATE TRIGGER Restaurant.SingleTableTrigger ON Restaurant.SingleTable
